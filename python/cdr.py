@@ -6,6 +6,8 @@ doa13 = 0
 doai = 0
 doax = np.array([0])
 doay = np.array([0])
+
+# Simulation data
 file_name = 'samples\\rir_gen_3\\hello_rir_1_n150.wav'
 with wave.open(file_name, 'rb') as wav_file:
     frame_rate = wav_file.getframerate()
@@ -28,18 +30,19 @@ with wave.open(file_name, 'rb') as wav_file:
     wav_array = np.frombuffer(wav_data, dtype=np.int16)
     channel_3 = wav_array /10
 
-file_name = "samples\\hello\\speech_n20_1.wav"
-with wave.open(file_name, 'rb') as wav_file:
-    # Lấy thông tin về file WAV
-    frame_rate = wav_file.getframerate()
-    num_frames = wav_file.getnframes()
-    num_channels = wav_file.getnchannels()
-    samp = wav_file.getsampwidth()
-    # Đọc dữ liệu từ các loa và chuyển đổi thành mảng NumPy
-    wav_data = wav_file.readframes(-1)
-    wav_array = np.frombuffer(wav_data, dtype=np.int16)
-    channel_1 = wav_array[0::2]
-    channel_2 = wav_array[1::2]
+# Real data
+# file_name = "samples\\hello\\speech_n20_1.wav"
+# with wave.open(file_name, 'rb') as wav_file:
+#     # Lấy thông tin về file WAV
+#     frame_rate = wav_file.getframerate()
+#     num_frames = wav_file.getnframes()
+#     num_channels = wav_file.getnchannels()
+#     samp = wav_file.getsampwidth()
+#     # Đọc dữ liệu từ các loa và chuyển đổi thành mảng NumPy
+#     wav_data = wav_file.readframes(-1)
+#     wav_array = np.frombuffer(wav_data, dtype=np.int16)
+#     channel_1 = wav_array[0::2]
+#     channel_2 = wav_array[1::2]
 
 G_old12 = np.ones(3*(FRAME+1)).reshape(3, (FRAME+1))
 G_old13 = np.ones(3*(FRAME+1)).reshape(3, (FRAME+1))
@@ -73,23 +76,16 @@ for k in range(int(len(channel_1)/FRAME)):
 doa = np.round(doa*180/np.pi*10)/10
 doax = np.round(doax*180/np.pi*10)/10
 doay = np.round(doay*180/np.pi*10)/10
-# print(doa)
+print(doa)
 plt.subplot(211)
-# plt.plot(doa)
 plt.plot(doax)
-# plt.plot(doay)
-
+plt.plot(doay)
 plt.legend(['DOA','Angle Ox', 'Angle Oy'])
-
-
 plt.grid()
-
 plt.subplot(212)
 plt.plot(channel_1)
 plt.plot(channel_2)
 plt.grid()
-
-
 plt.show()
 
 
