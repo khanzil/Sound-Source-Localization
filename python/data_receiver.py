@@ -4,9 +4,6 @@ import wave
 import socket
 import time
 
-# from scipy.fftpack import fft
-
-
 RATE = 48000
 RECORD_SEC = 5
 WAVE_OUTPUT_FILENAME_0  = "samples\\hello\\speech_p30_1.wav"
@@ -42,16 +39,13 @@ def recv_data(desire_len):
         
     return data
 
-#Ham ghi am 
+#Record funtion
 def creat_file(filename):
     wf = wave.open(filename, 'wb')
     wf.setnchannels(2)
     wf.setsampwidth(SAMPLE_WIDTH)
     wf.setframerate(RATE)
     return wf
-        
-#Ham ve do thi dang song      
-#Vong lap thuc hien lenh
 
 if command == "record":
     print (time.asctime( time.localtime(time.time()) ))
@@ -92,6 +86,7 @@ with wave.open(WAVE_OUTPUT_FILENAME_0, 'rb') as wav_file:
     chan_1 = wav_array[1::4]
     chan_2 = wav_array[2::4]
     chan_3 = wav_array[3::4]
+    
 # plt.subplot(121)
 plt.plot(chan_0)
 plt.plot(chan_1)
